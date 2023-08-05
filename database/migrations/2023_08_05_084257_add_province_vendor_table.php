@@ -14,10 +14,10 @@ class AddProvinceVendorTable extends Migration
     public function up()
     {
         Schema::table('vendors', function (Blueprint $table) {
-            $table->unsignedBigInteger('village_id');
-            $table->unsignedBigInteger('district_id');
-            $table->unsignedBigInteger('city_id');
-            $table->unsignedBigInteger('province_id');
+            $table->unsignedBigInteger('village_id')->nullable(); 
+            $table->unsignedBigInteger('district_id')->nullable(); 
+            $table->unsignedBigInteger('city_id')->nullable(); 
+            $table->unsignedBigInteger('province_id')->nullable(); 
         });
     }
 
