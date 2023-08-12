@@ -30,7 +30,7 @@ Route::group([
 ], function ($router) {
 
     Route::controller(\App\Http\Controllers\AuthController::class)->group(function () {
-        // Route::post('/customer/list','customerList')->middleware('vendor.verify');
+        Route::get('/category','index');
         // Route::get('/customer/view/{id}','customerDetail')->middleware('vendor.verify');
     });
 
