@@ -1,15 +1,15 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Repositories\CategoryRepository;
+use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     protected $repository;
 
-    public function __construct(CategoryRepository $repository)
+    public function __construct(ProductRepository $repository)
     {
         $this->repository = $repository;
     }

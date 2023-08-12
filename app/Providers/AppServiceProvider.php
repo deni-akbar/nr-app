@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Providers;
-// use App\Repositories\BridgeRepository;
-// use App\Repositories\BridgeRepository;
-// use App\Repositories\BridgeRepository;
+use App\Repositories\BridgeRepository;
+use App\Repositories\VendorRepository;
+use App\Repositories\UserRepository;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -16,15 +16,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(BridgeRepository::class, function () {
-            return new BridgeRepository();
-        });
-        $this->app->bind(VendorRepository::class, function () {
-            return new VendorRepository();
-        });
-        $this->app->bind(UserRepository::class, function () {
-            return new UserRepository();
-        });
+        // $this->app->bind(BridgeRepository::class, function () {
+        //     return new BridgeRepository();
+        // });
+        // $this->app->bind(VendorRepository::class, function () {
+        //     return new VendorRepository();
+        // });
+        // $this->app->bind(UserRepository::class, function () {
+        //     return new UserRepository();
+        // });
     }
 
     /**
