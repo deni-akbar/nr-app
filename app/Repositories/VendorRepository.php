@@ -10,6 +10,11 @@ class VendorRepository
         return Vendor::all();
     }
 
+    public function getRandomVendor($limit)
+    {
+        return Vendor::inRandomOrder()->take($limit)->get();
+    }
+
     public function create(array $data)
     {
         return Vendor::create($data);

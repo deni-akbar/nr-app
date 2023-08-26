@@ -58,7 +58,6 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
         try {
             if($request->role=='vendor'){
                 // Ambil user berdasarkan email yang diinputkan
@@ -88,7 +87,7 @@ class AuthController extends Controller
             }
             
             $token = JWTAuth::fromUser($user);
-            
+            $token = 'Bearer '.$token;
         } catch (JWTException $e) {
             return response()->json(['error' => 'Could not create token'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

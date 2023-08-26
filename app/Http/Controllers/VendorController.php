@@ -20,6 +20,13 @@ class VendorController extends Controller
         return response()->json($data);
     }
 
+    public function getRandom(Request $request)
+    {
+        $limit=$request->get('limit');
+        $data = $this->repository->getRandomVendor($limit);
+        return response()->json($data);
+    }
+
     public function show($id)
     {
         $data = $this->repository->find($id);

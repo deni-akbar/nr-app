@@ -37,15 +37,15 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
+            'driver' => 'jwt',
             'provider' => 'users',
         ],
         'bridge' => [
-            'driver' => 'session',
+            'driver' => 'jwt',
             'provider' => 'bridges',
         ],
         'vendor' => [
-            'driver' => 'session',
+            'driver' => 'jwt',
             'provider' => 'vendors',
         ],
     ],

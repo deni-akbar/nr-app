@@ -15,8 +15,19 @@ class Product extends Model
         'name',
         'desc',
         'price',
-        'dicount',
+        'discount',
         'category_id',
+        'vendor_id',
     ];
+
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'id', 'category_id');
+    }
+    
+    public function vendor()
+    {
+        return $this->hasOne(Vendor::class, 'id', 'vendor_id');
+    }
 
 }

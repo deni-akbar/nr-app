@@ -22,6 +22,11 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', 'App\Http\Controllers\AuthController@register');
 Route::post('/login', 'App\Http\Controllers\AuthController@login');
 
+//GET MASTER DATA
+Route::get('/category', 'App\Http\Controllers\CategoryController@index');
+Route::get('/product', 'App\Http\Controllers\ProductController@index');
+
+
 Route::group([
 
     'middleware' => 'api',
@@ -29,8 +34,10 @@ Route::group([
 
 ], function ($router) {
 
-    Route::controller(\App\Http\Controllers\AuthController::class)->group(function () {
-        Route::get('/category','index');
+    Route::controller(\App\Http\Controllers\ProductController::class)->group(function () {
+        Route::get('/product/{id}','getByVendor')->middleware('vendor.verify');
+        Route::post('/product/create','store')->middleware('vendor.verify');
+
         // Route::get('/customer/view/{id}','customerDetail')->middleware('vendor.verify');
     });
 
@@ -43,8 +50,12 @@ Route::group([
 
 ], function ($router) {
 
-    Route::controller(\App\Http\Controllers\CustomerController::class)->group(function () {
+    Route::controller(\App\Http\Controllers\ProductController::class)->group(function () {
+        Route::get('/product/random','getRandom')->middleware('bridge.verify');
+    });
 
+    Route::controller(\App\Http\Controllers\VendorController::class)->group(function () {
+        Route::get('/vendor/random','getRandom')->middleware('bridge.verify');
     });
 
 });

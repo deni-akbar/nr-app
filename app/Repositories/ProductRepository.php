@@ -7,7 +7,17 @@ class ProductRepository
 {
     public function all()
     {
-        return Product::all();
+        return Product::with('category')->get();
+    }
+
+    public function getRandomProduct($limit)
+    {
+        return Product::with('category')->inRandomOrder()->take($limit)->get();
+    }
+
+    public function getByVendor($id)
+    {
+        return Product::where('vendor_id',$id)->with('category')->get();
     }
 
     public function create(array $data)
