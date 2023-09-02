@@ -17,20 +17,23 @@ class VendorController extends Controller
     public function index()
     {
         $data = $this->repository->all();
-        return response()->json($data);
+
+        return jsonResponse(200, '', $data);
     }
 
     public function getRandom(Request $request)
     {
         $limit=$request->get('limit');
         $data = $this->repository->getRandomVendor($limit);
-        return response()->json($data);
+        return jsonResponse(200, '', $data);
+
     }
 
     public function show($id)
     {
         $data = $this->repository->find($id);
-        return response()->json($data);
+        return jsonResponse(200, '', $data);
+
     }
 
     public function update(Request $request, $id)
@@ -48,6 +51,6 @@ class VendorController extends Controller
     public function destroy($id)
     {
         $this->repository->delete($id);
-        return response()->json(['message' => 'Data berhasil dihapus']);
+        return jsonResponse(200, '', []);
     }
 }

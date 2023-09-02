@@ -25,16 +25,18 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        $vld_email=($request->role=='vendor')?'vendors':'bridges';
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:'.$vld_email,
             'password' => 'required|min:6',
             'role' => 'required|in:bridge,vendor', // Aturan validasi untuk role
         ]);
     
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], Response::HTTP_BAD_REQUEST);
+            return jsonResponse(Response::HTTP_BAD_REQUEST,'Error Validations',$validator->errors());
         }
         
         $userData = [
@@ -52,7 +54,8 @@ class AuthController extends Controller
 
         $token = JWTAuth::fromUser($data);
 
-         return response()->json(['message' => 'Register Success'], 200);
+        return jsonResponse(200,'Register Success',[]);
+
     }
 
     public function login(Request $request)
@@ -65,11 +68,11 @@ class AuthController extends Controller
 
                 // Jika user tidak ditemukan, berikan respon error
                 if (!$user) {
-                    return response()->json(['error' => 'User tidak ditemukan'], Response::HTTP_UNAUTHORIZED);
+                    return jsonResponse(Response::HTTP_UNAUTHORIZED,'User tidak ditemukan',[]);
                 }
 
                 if (!$token = auth('vendor')->attempt($credentials)) {
-                    return response()->json(['error' => 'invalid_credentials'], 400);
+                    return jsonResponse(400,'Invalid credentials',[]);
                 }
 
             }else{
@@ -78,20 +81,21 @@ class AuthController extends Controller
 
                 // Jika user tidak ditemukan, berikan respon error
                 if (!$user) {
-                    return response()->json(['error' => 'User tidak ditemukan'], Response::HTTP_UNAUTHORIZED);
+                    return jsonResponse(Response::HTTP_UNAUTHORIZED,'User tidak ditemukan',[]);
                 }
 
                 if (!$token = auth('bridge')->attempt($credentials)) {
-                    return response()->json(['error' => 'invalid_credentials1'], 400);
+                    return jsonResponse(400,'Invalid credentials',[]);
                 }
             }
             
             $token = JWTAuth::fromUser($user);
             $token = 'Bearer '.$token;
         } catch (JWTException $e) {
-            return response()->json(['error' => 'Could not create token'], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return jsonResponse(Response::HTTP_INTERNAL_SERVER_ERROR,'Could not create token',[]);
         }
 
-        return response()->json(compact('user', 'token'));
+        return jsonResponse(200,'Login Success',compact('user', 'token'));
+
     }
 }

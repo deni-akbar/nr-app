@@ -18,20 +18,23 @@ class ProductController extends Controller
     public function index()
     {
         $data = $this->repository->all();
-        return response()->json($data);
+
+        return jsonResponse(200, '', $data);
     }
 
     public function getRandom(Request $request)
     {
         $limit=$request->get('limit');
         $data = $this->repository->getRandomProduct($limit);
-        return response()->json($data);
+       
+        return jsonResponse(200, '', $data);
     }
 
     public function getByVendor($id)
     {
         $data = $this->repository->getByVendor($id);
-        return response()->json($data);
+
+        return jsonResponse(200, '', $data);
     }
 
     public function store(Request $request)
@@ -51,13 +54,16 @@ class ProductController extends Controller
         }
 
         $createdData = $this->repository->create($request->all());
-        return response()->json($createdData, Response::HTTP_CREATED);
+
+        return jsonResponse(Response::HTTP_CREATED, 'Success post data', $createdData);
     }
 
     public function show($id)
     {
         $data = $this->repository->find($id);
-        return response()->json($data);
+
+        return jsonResponse(200, '', $data);
+
     }
 
     public function update(Request $request, $id)
@@ -68,12 +74,15 @@ class ProductController extends Controller
         ]);
 
         $updatedData = $this->repository->update($id, $validatedData);
-        return response()->json($updatedData);
+
+        return jsonResponse(201, 'Update Data Success', $updatedData);
+
     }
 
     public function destroy($id)
     {
         $this->repository->delete($id);
-        return response()->json(['message' => 'Data berhasil dihapus']);
+        return jsonResponse(200, '', []);
+
     }
 }
