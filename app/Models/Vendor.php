@@ -22,6 +22,7 @@ class Vendor extends Authenticatable implements JWTSubject
         'village_id',
         'city_id',
         'district_id',
+        'photo',
     ];
 
     public function getJWTIdentifier()

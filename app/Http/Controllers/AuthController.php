@@ -37,11 +37,19 @@ class AuthController extends Controller
             'city_id' => 'required',
             'village_id' => 'required',
             'district_id' => 'required',
+            'photo' => 'file|mimes:jpeg,png,pdf|max:2048',
         ]);
     
         if ($validator->fails()) {
             return jsonResponse(Response::HTTP_BAD_REQUEST,'Error Validations',$validator->errors());
         }
+
+        $file = $request->file('photo');
+        if($file){
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('user_photo', $fileName);
+        }
+
 
         $userData = [
             'name' => $request->input('name'),
@@ -52,6 +60,7 @@ class AuthController extends Controller
             'city_id' => $request->input('city_id'),
             'village_id' => $request->input('village_id'),
             'district_id' => $request->input('district_id'),
+            'photo' => $fileName,
         ];
 
         if($request->role=='vendor'){
