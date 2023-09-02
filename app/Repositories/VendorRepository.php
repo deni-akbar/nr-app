@@ -22,7 +22,7 @@ class VendorRepository
 
     public function find($id)
     {
-        return Vendor::find($id);
+        return Vendor::with('province','district','city','village')->find($id);
     }
 
     public function findByEmail($id)

@@ -29,9 +29,11 @@ class VendorController extends Controller
 
     }
 
-    public function show($id)
+    public function show()
     {
-        $data = $this->repository->find($id);
+        
+        $user = auth('vendor')->userOrFail();
+        $data = $this->repository->find($user->id);
         return jsonResponse(200, '', $data);
 
     }

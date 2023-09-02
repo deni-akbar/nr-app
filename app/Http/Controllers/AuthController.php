@@ -32,18 +32,26 @@ class AuthController extends Controller
             'phone' => 'required|string|max:20',
             'email' => 'required|email|unique:'.$vld_email,
             'password' => 'required|min:6',
-            'role' => 'required|in:bridge,vendor', // Aturan validasi untuk role
+            'role' => 'required|in:bridge,vendor', 
+            'province_id' => 'required',
+            'city_id' => 'required',
+            'village_id' => 'required',
+            'district_id' => 'required',
         ]);
     
         if ($validator->fails()) {
             return jsonResponse(Response::HTTP_BAD_REQUEST,'Error Validations',$validator->errors());
         }
-        
+
         $userData = [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'password' => Hash::make($request->input('password')),
+            'province_id' => $request->input('province_id'),
+            'city_id' => $request->input('city_id'),
+            'village_id' => $request->input('village_id'),
+            'district_id' => $request->input('district_id'),
         ];
 
         if($request->role=='vendor'){
@@ -54,7 +62,7 @@ class AuthController extends Controller
 
         $token = JWTAuth::fromUser($data);
 
-        return jsonResponse(200,'Register Success',[]);
+        return jsonResponse(200,'Register Success',$data);
 
     }
 

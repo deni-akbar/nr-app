@@ -18,6 +18,10 @@ class Bridge extends Authenticatable implements JWTSubject
         'email',
         'phone',
         'password',
+        'province_id',
+        'village_id',
+        'city_id',
+        'district_id',
     ];
 
     public function getJWTIdentifier()
@@ -33,5 +37,25 @@ class Bridge extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function province()
+    {
+        return $this->hasOne(Province::class, 'id', 'province_id');
+    }
+
+    public function village()
+    {
+        return $this->hasOne(Village::class, 'id', 'village_id');
+    }
+
+    public function city()
+    {
+        return $this->hasOne(City::class, 'id', 'city_id');
+    }
+
+    public function district()
+    {
+        return $this->hasOne(District::class, 'id', 'district_id');
     }
 }

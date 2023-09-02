@@ -38,8 +38,11 @@ Route::group([
     Route::controller(\App\Http\Controllers\ProductController::class)->group(function () {
         Route::get('/product/{id}','getByVendor')->middleware('vendor.verify');
         Route::post('/product/create','store')->middleware('vendor.verify');
+    });
 
-        // Route::get('/customer/view/{id}','customerDetail')->middleware('vendor.verify');
+    Route::controller(\App\Http\Controllers\VendorController::class)->group(function () {
+        Route::get('/','show')->middleware('vendor.verify');
+        Route::post('/product/create','store')->middleware('vendor.verify');
     });
 
 });
