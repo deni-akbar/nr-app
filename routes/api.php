@@ -25,7 +25,8 @@ Route::post('/login', 'App\Http\Controllers\AuthController@login');
 //GET MASTER DATA
 Route::get('/category', 'App\Http\Controllers\CategoryController@index');
 Route::get('/product', 'App\Http\Controllers\ProductController@index');
-
+Route::get('/province/all', 'App\Http\Controllers\AddressController@getAllProvinces');
+Route::get('/address/{id}', 'App\Http\Controllers\AddressController@getAddress');
 
 Route::group([
 
